@@ -293,7 +293,27 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 </script>"""
 
 
-def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en"):
+SHARE = {"url": "", "desc": "", "img": False}
+
+
+def head_extra(title, base, path=""):
+    """Description, link-preview (Open Graph) and favicon tags. Image files are made in main()."""
+    if not SHARE["url"]:
+        return ""
+    t, d = html.escape(title, quote=True), html.escape(SHARE["desc"], quote=True)
+    out = [f'<meta name="description" content="{d}">',
+           f'<meta property="og:type" content="website"><meta property="og:title" content="{t}">',
+           f'<meta property="og:description" content="{d}">',
+           f'<meta property="og:url" content="{SHARE["url"]}/{path}">']
+    if SHARE["img"]:
+        out += [f'<meta property="og:image" content="{SHARE["url"]}/share.jpg">',
+                '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
+                '<meta name="twitter:card" content="summary_large_image">',
+                f'<link rel="icon" type="image/png" href="{base}favicon.png">']
+    return "\n".join(out)
+
+
+def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en", path=""):
     """work_head (work pages only) = title line for the phone's bottom bar; it also switches on the swipe layout."""
     bar = (f'<header id="mbar"><a href="{base}index.html">{html.escape(name)}</a>'
            f'<button type="button" id="mbtn">Menu</button></header><div id="menu">{nav_html}</div>')
@@ -306,6 +326,7 @@ def page(title, nav_html, main_html, aside_html, base="", name="", work_head="",
 <html lang="{lang}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
+{head_extra(title, base, path)}
 <style>{CSS}</style></head>
 <body{cls}>{bar}<div class="wrap">
 <nav>{nav_html}</nav>
@@ -348,6 +369,21 @@ def main():
         "links": [tuple(p.strip() for p in v.split("|", 1))
                   for k, v in smulti if k == "link" and "|" in v],
     }
+
+    # ---- link preview / description / favicon (content/share.jpg = the picture shown when the link is shared)
+    SHARE["url"] = (smeta.get("url") or "https://seunghoonbaek.com").rstrip("/")
+    _, hb0, _ = parse_txt(CONTENT / "home.txt")
+    first = next((p.strip() for p in re.split(r"\n\s*\n", hb0) if p.strip() and not p.strip().startswith("(")), "")
+    SHARE["desc"] = smeta.get("description") or (first[:200] if first else f'{site["name"]} — portfolio')
+    share_src = next((CONTENT / n for n in ("share.jpg", "share.jpeg", "share.png") if (CONTENT / n).exists()), None)
+    if share_src:
+        im = ImageOps.exif_transpose(Image.open(share_src)).convert("RGB")
+        og = ImageOps.fit(im, (1200, 630), Image.LANCZOS, centering=(0.5, 0.5))
+        og.save(OUT / "share.jpg", quality=88, optimize=True, progressive=True)
+        ImageOps.fit(im, (64, 64), Image.LANCZOS, centering=(0.5, 0.5)).save(OUT / "favicon.png", optimize=True)
+        SHARE["img"] = True
+    else:
+        print("  ! no content/share.jpg — link previews will have no picture")
 
     works = []
     wdir = CONTENT / "works"
@@ -393,7 +429,7 @@ def main():
         (odir / "index.html").write_text(
             page(f'{w["title"]} – {site["name"]}', build_nav("../../", site, works, w["slug"]),
                  "\n".join(media) + archive("../../", "archive"), aside,
-                 base="../../", name=site["name"],
+                 base="../../", name=site["name"], path=f'works/{w["slug"]}/',
                  work_head=(f'<em>{html.escape(w["title"])}</em>' + (f' · {html.escape(w["year"])}' if w["year"] else ""))),
             encoding="utf-8")
 
@@ -431,7 +467,7 @@ def main():
     (OUT / "about").mkdir(parents=True, exist_ok=True)
     (OUT / "about" / "index.html").write_text(
         page(f'About – {site["name"]}', build_nav("../", site, works, "_about"),
-             main_html + archive("../", "archive"), para(cbody), base="../", name=site["name"]),
+             main_html + archive("../", "archive"), para(cbody), base="../", name=site["name"], path="about/"),
         encoding="utf-8")
 
     (OUT / ".nojekyll").write_text("")
