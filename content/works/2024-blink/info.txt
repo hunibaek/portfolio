@@ -1,0 +1,5 @@
+title: Blink
+year: 2024
+medium: Installation
+---
+Sample text. Replace with the real description.
