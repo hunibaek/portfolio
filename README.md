@@ -33,7 +33,7 @@ video: https://vimeo.com/123456789     ← (선택) 여러 줄 가능, YouTube�
    ```
    video: https://youtu.be/영상ID
    ```
-   영상이 여러 개면 `video:` 줄을 여러 번 쓰면 됩니다. 영상은 첫 번째 사진 바로 아래에 나옵니다.
+   영상이 여러 개면 `video:` 줄을 여러 번 쓰면 됩니다. 영상은 모든 사진 맨 아래(마지막)에 나옵니다.
 - 인식하는 주소: `youtube.com/watch?v=…`, `youtu.be/…`, `youtube.com/shorts/…`, `vimeo.com/숫자`
 - YouTube Studio → 해당 영상 → 세부정보 → '퍼가기 허용'이 켜져 있어야 합니다(기본값은 켜짐).
 

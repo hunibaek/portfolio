@@ -353,7 +353,7 @@ def main():
     wdir = CONTENT / "works"
     for d in sorted((p for p in wdir.iterdir() if p.is_dir()), reverse=True) if wdir.exists() else []:
         meta, body, multi = parse_txt(d / "info.txt")
-        imgs = sorted(p for p in d.iterdir() if p.suffix.lower() in IMG_EXT)
+        imgs = sorted((p for p in d.iterdir() if p.suffix.lower() in IMG_EXT), key=lambda p: ([int(t) if t.isdigit() else t.lower() for t in re.split(r"(\d+)", p.stem)], p.name))
         if not imgs:
             print(f"  ! skipped {d.name}: no images")
             continue
