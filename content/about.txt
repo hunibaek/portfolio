@@ -7,11 +7,47 @@
 사진을 넣으려면 맨 위에 'image: portrait.jpg' 와 '---' 두 줄을 쓰고 사진을 content 폴더에 넣으세요.
 
 # Bio
+
 Seunghoon Baek (b. 1990, South Korea) is a media-performance artist based in Berlin.
 
 # Education
-2022–2024 Universität der Künste Berlin, Bildende Kunst (Prof. Monica Bonvicini)
 
-# Selected Exhibitions
-2026 Kulturhaus Baumschulenweg, Berlin
-2022 *Boundless between Sky and Earth*, St. Bartholomew, Halle (Saale) — solo
+2022–2024 Master Universität der Künste Berlin, Bildende Kunst (Prof. Monica Bonvicini)
+2016-2022 Diplom Burg Giebichenstein Halle, Time based art (Prof. Michaela Schweiger)
+2019–2020 Guest studies, Academy of Fine Arts Munich (Prof. Olaf Nicolai)
+2009–2014 Bachelor Painting and Photography, Keimyung University, Daegu, South Korea
+
+# Teaching
+
+2024 *Place and Perception – A Site-Specific Seminar*, Seminar Supervisor, Universität der Künste Berlin
+
+# Solo Exhibition
+
+2022 "Boundless between Sky and Earth", St. Bartholomew's Church, Halle (Saale), Germany
+
+# Group Exhibitions (Selection)
+
+2026 "[Gülden](https://www.instagram.com/kulturring.berlin/)", Kulturhaus Baumschulenweg, Berlin, Germany
+2025 "[On tur](https://b22.hrcglobal.com/hrc.py)", On tur kindergarten, Seoul, South Korea
+2025 "[Vanishing Akts](https://www.instagram.com/p/DRO_OuNk1Ca/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==)", Muyoungdang, Daegu, South Korea
+2025 "[Kunstpunkte 121](https://bbk-duesseldorf.de/kunsttermine/kunstpunkte-2025)", BBKkunstforum, Düsseldorf, Germany
+2025 "[An optimistic at Heart](https://www.instagram.com/p/DKCg9o8s_jI/?utm_source=ig_web_copy_link&igsh=MTN0ZnBsMDk2aWVteQ==)", Crowded Berlin, Berlin, Germany
+2024 "[Diagonale#5](http://verwalterhaus.kulturkapellen.de)", Berlin, Germany
+2024 "[Gost-host](https://www.instagram.com/p/DAm24rZyKrc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==)", Seoul, South Korea
+2023 "Re-fuse", Hjalteyri, Iceland
+2022 "[EMAF no 35](https://www.emaf.de/files/download/emaf_catalogue-no35.pdf)", European Media Art Festival, Osnabrück, Germany
+2021 "[Artwalk](https://almresidency.com/almresidencyartist2021-2-2)", Almresidency, Mountain_Alm, Waakirchen, Germany
+2021 "[Sicher nicht](https://www.burg-halle.de/en/article/details/a/sicher-nicht-1)", Volkspark, Halle (Saale), Germany
+2020 "[Nor did I, at all, the time bemoan](http://www.2ver.com/~ssarchive/pages/sub.htm?mode=view&mv_data=aWR4PTEwMDImbXN0X2lkeD0mc3RhcnRQYWdlPTE4MCZsaXN0Tm89MTUwJnRhYmxlPWNzX2RhdGFfYXJjaGl2ZSZzaXRlX2NvZGU9c3NhcmNoaXZlJmNvZGU9aW1nJnNlYXJjaF9pdGVtPSZzZWFyY2hfb3JkZXI9Jm9yZGVyX2xpc3Q9Jmxpc3Rfc2NhbGU9JnZpZXdfbGV2ZWw9JnZpZXdfY2F0ZT0mdmlld19jYXRlMj0mdmlld19jYXRlMz0mdmlld19jYXRlND0mdmlld19jYXRlNT0=%7C%7C&nav_code=ssa1616570687)", Suseongartpia, Daegu, South Korea
+2019 "[Täglich geöffnet](https://www.burg-halle.de/artikel/a/taeglich-geoeffnet-3)", Boesner Projectroom, Leipzig, Germany
+2019 "[Take me to that place](https://www.burg-halle.de/artikel/a/ausstellung-take-me-to-that-place-der-zeitbasierten-kuenste-in-der-oper-halle)", Opera House, Halle (Saale), Germany
+
+# Other Exhibitions
+
+2018 "hay cosas y cosas", ISA artuniversity, Havana, Cuba
+2015 "Cacophony XI", Galerie Bundo, Daegu, South Korea
+
+# Awards
+
+2022 Nomination, Federal Prize for Art Students (Bundespreis für Kunststudierende), Bonn
+2021 Project Fund, Alexander Tutzek Foundation
