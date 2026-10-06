@@ -376,7 +376,7 @@ def main():
             f'<span>{html.escape(w["title"])}</span></a>' for w in works)
         return f'<div class="grid {extra_cls}">{cells}</div>'
 
-    # ---- work pages: first photo, then videos, then remaining photos (NONOTAK order)
+    # ---- work pages: all photos in order, then videos last (NONOTAK order)
     for w in works:
         odir = OUT / "works" / w["slug"]
         imgs = []
@@ -386,7 +386,7 @@ def main():
                         f'sizes="(max-width:860px) 100vw, 910px" data-big="{html.escape(big)}" '
                         f'data-full="{html.escape(orig)}" loading="lazy" alt="{html.escape(w["title"])}">')
         resize(w["cover"], odir / "_thumb.jpg", THUMB_MAX)
-        media = imgs[:1] + [embed(v) for v in w["videos"]] + imgs[1:]
+        media = imgs + [embed(v) for v in w["videos"]]
         head = ", ".join(x for x in (w["medium"], w["year"]) if x)
         aside = (f'<div class="head"><em>{html.escape(w["title"])}</em>'
                  f'{", " + html.escape(head) if head else ""}.</div>{para(w["body"])}')
