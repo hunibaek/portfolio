@@ -1,4 +1,5 @@
-title: The Person Who Cannot See Himself
+title: The Person Who Cannot See themselves
+
 year: 2026
 medium: Interactive installation, 2 laser levels, glow paint, 2 construction tripods
 video: https://youtu.be/XoTxn9bRYoY
