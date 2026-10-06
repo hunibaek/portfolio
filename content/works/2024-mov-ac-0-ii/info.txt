@@ -1,0 +1,9 @@
+title: mov ac, 0, II
+year: 2024
+medium: Light installation, 50x70x120 cm, 3x LED lamp, Arduino, gravestone, aluminum plate
+---
+Berlin, Germany
+
+The gravestone-shaped lightbox object bears the inscription “Hier ruht in Gott” (“Here rests in God”), pointing to divine salvation after death. Three LEDs blink the code “mov ac, 0, II” in Morse code.
+
+Video: https://lmy.de/OqGoa

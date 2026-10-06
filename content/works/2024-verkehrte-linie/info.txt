@@ -1,0 +1,9 @@
+title: Verkehrte Linie
+year: 2024
+medium: Installation, 20x10x120 cm, metronome, stepper motor, Arduino, cable
+---
+Berlin, Germany
+
+The pin of the metronome stays fixed while the motor sets the body into a pendulum motion. The cable swings along and draws a taut curve through the space.
+
+Video: https://lmy.de/MgBPh
