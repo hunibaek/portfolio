@@ -1,5 +1,0 @@
-title: LightShadow
-year: 2023
-medium: Video, sound
----
-Sample text. Replace with the real description.

@@ -1,9 +1,0 @@
-title: Rendering the Invisible
-year: 2026
-medium: UV LED, photochromic paint, stainless steel, performance
-# video: https://www.youtube.com/watch?v=영상ID   ← 맨 앞 '# '을 지우고 주소를 넣으면 영상이 들어갑니다
----
-샘플 텍스트입니다. 이 칸(오른쪽 열)에 작품 설명을 넣으세요.
-
-빈 줄로 문단을 나눕니다.
-줄바꿈은 그대로 유지됩니다.
