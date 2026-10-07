@@ -1,4 +1,4 @@
-title: Verkehrte Linie
+title: Pendlum
 year: 2024
 medium: Installation, 20x10x120 cm, metronome, stepper motor, Arduino, cable
 ---

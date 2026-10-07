@@ -1,4 +1,4 @@
-title: From the Earth
+title: Aus der Erde
 year: 2022
 medium: Video, 8:32, 62" monitor
 video: https://youtu.be/TGm7DkUAEPs
