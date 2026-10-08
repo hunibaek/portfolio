@@ -179,7 +179,7 @@ main{min-width:0}
 main img{display:block;width:100%;height:auto;margin:0 0 var(--gap);background:#080808}
 .video{position:relative;aspect-ratio:16/9;margin:0 0 var(--gap);background:#080808}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 35px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 20px}
 .grid a{text-decoration:none;display:block}
 .grid .th{aspect-ratio:3/2;overflow:hidden;background:#080808}
 .grid img{height:100%;object-fit:cover;margin:0;transition:opacity .2s}
