@@ -21,14 +21,14 @@ QUALITY = 86                 # JPEG quality; 4:4:4 chroma (no colour smearing)
 THUMB_MAX = 800
 PDF_LANGS = [("en", "English"), ("de", "Deutsch"), ("ko", "한국어")]
 # filter above the work list. info.txt: "category: performance, installation" (one or more, comma separated)
-CATEGORIES = [("performance", "Performance"), ("installation", "Installation"), ("2d", "2D works")]
+CATEGORIES = [("performance", "Performance"), ("installation", "Installation"), ("wall", "Wall works"), ("video", "Video")]
 
 
 def cat_keys(value):
     out = []
     for c in value.split(","):
         c = c.strip().lower().replace(" ", "")
-        c = {"2dworks": "2d", "2dwork": "2d", "performances": "performance", "installations": "installation"}.get(c, c)
+        c = {"wallworks": "wall", "wallwork": "wall", "2dworks": "wall", "2dwork": "wall", "2d": "wall", "performances": "performance", "installations": "installation", "videos": "video"}.get(c, c)
         if c and c not in out:
             out.append(c)
     return out
@@ -170,7 +170,8 @@ nav .about{margin-top:4px}
 .foot a{text-decoration:none;text-transform:uppercase;color:var(--menu)}
 html[data-f="performance"] [data-cat]:not([data-cat~="performance"]),
 html[data-f="installation"] [data-cat]:not([data-cat~="installation"]),
-html[data-f="2d"] [data-cat]:not([data-cat~="2d"]){display:none}
+html[data-f="wall"] [data-cat]:not([data-cat~="wall"]),
+html[data-f="video"] [data-cat]:not([data-cat~="video"]){display:none}
 nav .works a::before{content:"_"}
 nav a.cur,nav .works a.cur{background:var(--cur-bg);color:var(--cur-fg);padding:1px 4px;margin-left:-4px}
 main{min-width:0}

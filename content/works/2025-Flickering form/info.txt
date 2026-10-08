@@ -2,7 +2,7 @@ title: Flickering forms
 year: 2025
 medium: Performance, 07:51 min, 10 candle, Granit 25x8x15 cm, stander 40x40x125 cm
 video: https://youtu.be/W9Mka7fDda4
-category: performance
+category: performance, video
 ---
 Moyoungdang-Daegu, South Korea
 

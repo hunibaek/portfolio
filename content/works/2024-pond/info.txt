@@ -3,7 +3,7 @@ year: 2024
 medium: 2x aluminum plates, 30x10x5 cm, CNC engraving
 Video: https://youtu.be/JxjlCYKHBrw?si=R8FdaFjq3bgivcgs&t=101
 
-category: 2d works
+category: wall works
 ---
 Berlin, Germany
 

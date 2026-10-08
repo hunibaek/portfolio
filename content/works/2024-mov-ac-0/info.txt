@@ -2,7 +2,7 @@ title: mov ac, 0
 year: 2024
 medium: Video installation, 01:04 loop, 40x95x20 cm, monitor in box
 video: https://youtu.be/JxjlCYKHBrw?si=ToxXTZdo0gZH3cfw&t=74
-category: installation
+category: installation, video
 ---
 Berlin, Germany
 

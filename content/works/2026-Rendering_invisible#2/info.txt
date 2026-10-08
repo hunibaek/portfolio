@@ -2,7 +2,7 @@ title: Rendering the Invisible
 year: 2026
 medium: Performance, 25:22, luminous sphere lamp, oil pencil
 video: https://youtu.be/Waozj3vGrQ8?si=Nl-wmCXYPcgAlio0
-category: performance
+category: performance, video
 ---
 Berlin, Germany
 
