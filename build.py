@@ -153,7 +153,7 @@ body{margin:0;background:var(--bg);color:var(--text);font:400 var(--size)/var(--
  word-break:keep-all;overflow-wrap:break-word}
 a{color:inherit;transition:color .15s}
 a:hover{color:var(--hover)}
-.wrap{display:grid;grid-template-columns:200px minmax(0,var(--media)) 360px;column-gap:35px;
+.wrap{display:grid;grid-template-columns:215px minmax(0,var(--media)) 360px;column-gap:35px;
  padding:40px 35px 90px}
 nav{position:sticky;top:40px;align-self:start;max-height:calc(100vh - 60px);overflow-y:auto;
  scrollbar-width:none;line-height:var(--menu-lh)}
@@ -164,7 +164,7 @@ nav .links a{text-decoration:underline}
 nav .works a{color:var(--list)}
 .copy{margin:34px 0 0;font-size:10px;color:#555;line-height:1.5}
 nav .about{margin-top:4px}
-.filter{margin:18px 0;line-height:var(--menu-lh);text-transform:uppercase;color:#444}
+.filter{white-space:nowrap;margin:10px 0;line-height:var(--menu-lh);text-transform:uppercase;color:#444}
 .filter a{text-decoration:none;color:var(--list);cursor:pointer}
 .filter a:hover,.filter a.on{color:#fff}
 .foot{margin:34px 0 0;font-size:10px;color:#555;line-height:1.7}
@@ -201,7 +201,7 @@ aside h2:first-child,.text h2:first-child{margin-top:0}
 .pdf{margin-top:2em}
 .pdf h2{margin-top:0}
 .pdf a{display:inline-block;margin-right:14px}
-@media(max-width:1300px){.wrap{grid-template-columns:190px minmax(0,1fr) 300px;column-gap:30px}
+@media(max-width:1300px){.wrap{grid-template-columns:215px minmax(0,1fr) 300px;column-gap:30px}
  .grid{grid-template-columns:repeat(3,1fr)}}
 /* phone-only pieces: hidden on tablets/desktops */
 #mbar,#menu,#cbar,#dots,#sheet{display:none}
@@ -225,7 +225,7 @@ html.lock{overflow:hidden}
  #menu .works a{color:var(--list)}
  #menu .works a::before{content:"_"}
  #menu a.cur{background:#fff;color:var(--cur-fg);padding:2px 5px;margin-left:-5px}
- #menu .filter{font-size:14px;line-height:2.3;margin:4px 0 14px}
+ #menu .filter{font-size:14px;line-height:2.3;margin:16px 0}
  #menu .foot{font-size:12px}
  .wrap{display:block;padding:52px 0 44px}
  nav{display:none}
@@ -287,7 +287,8 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
     try{localStorage.setItem('workfilter',v);}catch(e){}
   }
   [].forEach.call(document.querySelectorAll('.filter a'),function(a){
-    a.addEventListener('click',function(e){e.preventDefault();set(a.dataset.f);});});
+    a.addEventListener('click',function(e){set(a.dataset.f);
+      if(a.parentNode.dataset.home)e.preventDefault();});});   /* other pages: go to the home grid */
   set(f);
 })();
 (function(){            /* phone: Menu button, Info sheet */
@@ -385,7 +386,12 @@ def build_nav(base, site, works, current):
     used = {c for w in works for c in w["cats"]}
     opts = [("all", "All")] + [(k, l) for k, l in CATEGORIES if k in used]
     sl = ' <span class="sl">/</span> '
-    filt = sl.join(f'<a href="#" role="button" data-f="{k}">{html.escape(l).replace(" ", "&nbsp;")}</a>' for k, l in opts)
+    home = ' data-home="1"' if current == "_portfolio" else ""
+    filt = ""
+    for i, (k, l) in enumerate(opts):                 # second line starts after "Performance /"
+        filt += f'<a href="{base}index.html" data-f="{k}">{html.escape(l).replace(" ", "&nbsp;")}</a>'
+        if i < len(opts) - 1:
+            filt += ' <span class="sl">/</span><br>' if k == "performance" else sl
     items = "".join(                                   # left list: A-Z (the home grid stays newest-first)
         f'<li data-cat="{" ".join(w["cats"])}">'
         + a(f"works/{w['slug']}/index.html", w["title"], w["slug"])[4:]
@@ -393,7 +399,7 @@ def build_nav(base, site, works, current):
     links = sl.join(
         f'<a href="{html.escape(u)}" target="_blank" rel="noopener">{html.escape(l)}</a>'
         for l, u in site["links"])
-    return (f'<ul>{top}</ul><p class="filter">{filt}</p>'
+    return (f'<ul>{top}</ul><p class="filter"{home}>{filt}</p>'
             f'<ul class="works">{items}</ul>'
             f'<p class="foot">{links}<br>{html.escape(site["copyright"])}</p>')
 
