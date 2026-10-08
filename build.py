@@ -149,7 +149,8 @@ CSS = """
 *{box-sizing:border-box}
 html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--text);font:400 var(--size)/var(--text-lh) var(--font);
- -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+ -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;
+ word-break:keep-all;overflow-wrap:break-word}
 a{color:inherit;transition:color .15s}
 a:hover{color:var(--hover)}
 .wrap{display:grid;grid-template-columns:200px minmax(0,var(--media)) 360px;column-gap:35px;
