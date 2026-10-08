@@ -1,6 +1,8 @@
 title: Pond
 year: 2024
 medium: 2x aluminum plates, 30x10x5 cm, CNC engraving
+Video: https://youtu.be/JxjlCYKHBrw?si=R8FdaFjq3bgivcgs&t=101
+
 ---
 Berlin, Germany
 
@@ -8,4 +10,6 @@ A wave form is engraved into the aluminum. The waves gradually disappear toward 
 
 The traces of the CNC drill take the form of falling water drops.
 
-Video: https://lmy.de/OqGoa
+알루미늄 위에 파동의 형태가 새겨져 있다. 물결은 오른쪽으로 갈수록 마치 증발하듯 점차 사라진다.
+
+CNC 드릴이 남긴 자국은 떨어지는 물방울의 모습을 띤다.

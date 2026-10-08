@@ -1,9 +1,12 @@
 title: mov ac, 0, II
 year: 2024
 medium: Light installation, 50x70x120 cm, 3x LED lamp, Arduino, gravestone, aluminum plate
+Video: https://youtu.be/JxjlCYKHBrw?si=CkAjrQ5O-RKVqrp_
 ---
 Berlin, Germany
 
-The gravestone-shaped lightbox object bears the inscription “Hier ruht in Gott” (“Here rests in God”), pointing to divine salvation after death. Three LEDs blink the code “mov ac, 0, II” in Morse code.
+The gravestone-shaped object bears the inscription “Hier ruht in Gott” (“Here rests in God”), pointing to divine salvation after death. Three LEDs blink the code “mov ac, 0, II” in Morse code.
 
-Video: https://lmy.de/OqGoa
+묘비 형태의 오브제에는 "Hier ruht in Gott"(여기 신 안에 잠들다)라는 문구가 새겨져 있으며, 이는 죽음 이후의 신적인 구원을 가리킨다. 세 개의 LED는 "mov ac, 0, II"라는 코드를 모스 부호로 깜빡인다.
+
+

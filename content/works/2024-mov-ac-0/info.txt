@@ -1,10 +1,10 @@
 title: mov ac, 0
 year: 2024
 medium: Video installation, 01:04 loop, 40x95x20 cm, monitor in box
-video: https://youtu.be/JxjlCYKHBrw
+video: https://youtu.be/JxjlCYKHBrw?si=ToxXTZdo0gZH3cfw&t=74
 ---
 Berlin, Germany
 
 A coffin-shaped box is filled with light through the “Handframe”. It appears as a hand-built space beyond the visible world. Within it, compressed information glows in the blue light of the monitor.
 
-Video: https://lmy.de/XwpjW
+관(棺) 모양의 상자는 'Handframe'을 통해 빛으로 채워진다. 그것은 눈에 보이는 세계 너머에 손으로 지은 하나의 공간처럼 나타난다. 그 안에서 압축된 정보들이 모니터의 푸른 빛 속에 빛나고 있다.

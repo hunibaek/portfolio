@@ -9,3 +9,6 @@ The person writes in black onto bright light. The more they write, the lower the
 
 The text is a short story about someone who cannot see their own reflection and finds themselves through light and shadow.
 
+밝은 빛 위에 검은색으로 글을 써 내려간다. 글이 쌓일수록 빛의 밝기는 점차 낮아지고, 그동안 보이지 않던 공간이 서서히 드러난다. 행위는 계속되고 공간은 어둠 속으로 가라앉는다.
+
+글은 자신의 모습을 볼 수 없는 한 인물이, 태양과 그림자를 통해 자기 자신의 모습을 점차 찾게되는 작가의 단편 이야기이다.

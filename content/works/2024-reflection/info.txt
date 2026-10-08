@@ -5,3 +5,6 @@ video: https://youtu.be/FICgACCBJxk?si=ifs6jNhYC_sxf3cx
 ---
 Berlin, Germany
 
+The monitor screen reflects the exhibition space. This extended space continuously shifts through different lighting conditions.
+
+모니터화면은 전시공간을 반사시킨다. 확장된 전시공간은 여러 조명조건으로 계속해서 바뀌어 나간다. 

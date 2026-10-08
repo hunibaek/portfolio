@@ -1,9 +1,11 @@
 title: Pendlum
 year: 2024
 medium: Installation, 20x10x120 cm, metronome, stepper motor, Arduino, cable
+Video: https://youtu.be/JxjlCYKHBrw?si=miMP8NL4lO_3J2Zm&t=25
+
 ---
 Berlin, Germany
 
-The pin of the metronome stays fixed while the motor sets the body into a pendulum motion. The cable swings along and draws a taut curve through the space.
+The pivot of the metronome stays fixed; instead of the needle, the body swings. A motor sets the body into a pendulum motion, and the cable swings along with it, drawing a taut curve through the space.
 
-Video: https://lmy.de/MgBPh
+메트로놈의 축은 고정된 채, 바늘 대신 몸체가 흔들린다. 모터가 몸체를 진자처럼 움직이고, 케이블도 함께 흔들리며 공간 속에 팽팽한 곡선을 그린다.

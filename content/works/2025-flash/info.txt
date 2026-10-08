@@ -5,4 +5,7 @@ video: https://youtu.be/cVkJjL_wdR8
 ---
 Reykjavík, Iceland
 
-The recorded video is projected in real time, flickering, in the room opposite.
+Arc welding creates flashes, and a camcorder records its own shadow in real time.
+A connected projector then projects the shadows onto a large screen. 
+
+아크 용접의 섬광 속에서 캠코더는 자신의 그림자를 실시간으로 촬영하고, 연결된 프로젝터는 그 그림자를 대형 스크린 위에 투사한다.

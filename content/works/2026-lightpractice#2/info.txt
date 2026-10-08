@@ -6,3 +6,5 @@ video: https://youtu.be/nKHDocmNCT4
 Berlin, Germany
 
 Lying on the floor, the performers pass a light from hand to hand, very slowly. The light travels from one end of the space to the other. As its height and position change, the shapes and brightness of the shadows shift gradually, altering and distorting how the space is perceived.
+
+바닥에 누운 퍼포머들이 아주 천천히, 손에서 손으로 빛을 건넨다. 빛은 공간의 한쪽 끝에서 다른 쪽 끝까지 이동한다. 빛의 높이와 위치가 바뀌면서 그림자의 모양과 밝기도 서서히 달라지고, 공간이 지각되는 방식 또한 변하고 일그러진다.

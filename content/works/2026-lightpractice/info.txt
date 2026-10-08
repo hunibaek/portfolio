@@ -10,3 +10,7 @@ One by one, each person slowly places a hand over the light.
 The light gradually turns red, and the brightness of the room fades. As the light dims, forms begin to become visible.
 
 The gesture repeats until the room finally sinks entirely into darkness.
+
+행위자 및 관객들은 한 손씩 천천히 그 빛을 가린다. 빛은 붉게 변하고, 공간의 조도가 서서히 낮아 진다.
+그렇게 형상이 드러난다.
+행위는 계속되고, 마침내 공간은 어둠에 잠긴다.
