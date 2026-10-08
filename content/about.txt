@@ -2,12 +2,6 @@
 
 # Bio
 
-Seunghoon Baek studierte Bildende Kunst bei Monica Bonvicini an der Universität der Künste Berlin und schloss zuvor sein Diplom an der Burg Giebichenstein Kunsthochschule Halle ab. 2024 leitete er an der UdK Berlin das ortsspezifische Seminar *Place and Perception*. 2022 wurde er für den Bundespreis für Kunststudierende nominiert. Seine Arbeiten wurden unter anderem beim European Media Art Festival (EMAF) sowie in Deutschland, Südkorea, Island und Kuba gezeigt.
-
-백승훈은 베를린예술대학교(UdK)에서 모니카 본비치니(Monica Bonvicini)를 사사하며 석사를, 할레 부르크 기비헨슈타인 예술대학에서 디플롬을 마쳤다. 2024년에는 UdK 베를린에서 장소특정적 세미나 「Place and Perception」을 이끌었다. 2022년 독일 연방 미술대학생상(Bundespreis für Kunststudierende) 후보에 올랐으며, 유럽미디어아트페스티벌(EMAF)을 비롯해 독일·한국·아이슬란드·쿠바에서 작품을 선보였다.
-
-# Text
-
 Seunghoon Baek (b. 1990, South Korea) is a media and performance artist based in Berlin and South Korea. He materializes light. To materialize light is to materialize perception.
 
 Light makes everything visible, yet remains itself unseen. Through performances and installations of artificial light and darkness, he turns light, always a means of seeing something else, into the very object of seeing.
@@ -18,6 +12,8 @@ In his work, light is passed on, covered, and leaves marks on matter. Where ligh
 
 Today the world reaches us as light, through screens and optical fibres. In an age when everything is compressed into a single flash, he unfolds that flash back into matter one can touch. There, light and darkness presuppose each other, and the one who sees and what is seen fold into one.
 
+He studied Fine Arts with Monica Bonvicini at the Universität der Künste Berlin, and his work has been shown at the European Media Art Festival (EMAF) and in Germany, South Korea, Iceland and Cuba.
+
 백승훈(1990년 한국 출생)은 베를린과 한국을 기반으로 활동하는 미디어·퍼포먼스 작가다. 그는 빛을 물질화한다. 빛을 물질화하는 것은 곧 지각을 물질화하는 일이다.
 
 빛은 모든 것을 보이게 하지만, 스스로는 보이지 않는다. 그는 인공의 빛과 어둠을 다루는 퍼포먼스와 설치를 통해, 늘 무언가를 보기 위한 수단이었던 빛을 보는 대상 그 자체로 바꾸어 놓는다.
@@ -27,6 +23,8 @@ Today the world reaches us as light, through screens and optical fibres. In an a
 그의 작업에서 빛은 건네지고, 가려지고, 물질 위에 자국을 남긴다. 빛이 닿은 곳은 어두워지고, 그림자는 밝아진다. 빛이 손에 잡히는 순간, 우리는 '본다'는 행위 자체를 보게 된다.
 
 오늘날 세계는 화면과 광섬유를 거쳐 빛으로 도착한다. 모든 것이 한 번의 섬광으로 압축되는 시대에, 그는 그 섬광을 다시 만질 수 있는 물질로 펼쳐 놓는다. 그곳에서 빛과 어둠은 서로를 전제하고, 보는 자와 보이는 것은 하나로 접힌다.
+
+베를린예술대학교(UdK)에서 모니카 본비치니를 사사했으며, 유럽미디어아트페스티벌(EMAF)을 비롯해 독일·한국·아이슬란드·쿠바에서 작품을 선보였다.
 
 # Education
 
