@@ -233,6 +233,7 @@ html.lock{overflow:hidden}
  .grid{grid-template-columns:repeat(2,1fr);gap:14px 6px;padding:0 6px}
  .grid span{text-align:center;font-size:10px;margin-top:4px}
  .archive{display:none}
+ .archive.all{display:grid;margin-top:46px}
  .text{padding:0 14px;margin-top:6px}
  main>img{margin-bottom:12px}
  /* work page: photos scroll down; bar + Info sheet stay fixed at the bottom; archive grid after the last photo */
@@ -459,9 +460,10 @@ def main():
             "cover": cover,
         })
 
-    def archive(base, extra_cls=""):
+    def archive(base, extra_cls="", filtered=True):   # filtered=False: always the whole archive
         cells = "".join(
-            f'<a href="{base}works/{w["slug"]}/index.html" data-cat="{" ".join(w["cats"])}"><div class="th">'
+            f'<a href="{base}works/{w["slug"]}/index.html"'
+            + (f' data-cat="{" ".join(w["cats"])}"' if filtered else '') + '><div class="th">'
             f'<img src="{base}works/{w["slug"]}/_thumb.jpg" loading="lazy" alt="{html.escape(w["title"])}"></div>'
             f'<span>{html.escape(w["title"])}</span></a>' for w in works)
         return f'<div class="grid {extra_cls}">{cells}</div>'
@@ -521,7 +523,7 @@ def main():
     (OUT / "about").mkdir(parents=True, exist_ok=True)
     (OUT / "about" / "index.html").write_text(
         page(f'About – {site["name"]}', build_nav("../", site, works, "_about"),
-             main_html + archive("../", "archive"), para(cbody), base="../", name=site["name"], path="about/"),
+             main_html + archive("../", "archive all", filtered=False), para(cbody), base="../", name=site["name"], path="about/"),
         encoding="utf-8")
 
     (OUT / ".nojekyll").write_text("")
