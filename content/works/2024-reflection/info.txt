@@ -2,6 +2,7 @@ title: Reflection
 year: 2024
 medium: videoinstallation, 01:21, loop, colour, sound
 video: https://youtu.be/FICgACCBJxk?si=ifs6jNhYC_sxf3cx
+category: installation
 ---
 Berlin, Germany
 

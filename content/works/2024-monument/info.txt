@@ -2,6 +2,7 @@ title: Monument
 year: 2024
 medium: Light installation, 50x70x40 cm, LED lamp, gravestone, aluminum plate
 video:https://youtu.be/JxjlCYKHBrw?si=k9Zkm9mE_rsVImIm&t=46
+category: installation
 ---
 Berlin, Germany
 

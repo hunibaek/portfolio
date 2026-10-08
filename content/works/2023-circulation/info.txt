@@ -2,10 +2,14 @@ title: Circulation
 year: 2022
 medium: Real-time light installation, video camera, projector
 video: https://youtu.be/pW6SulnHJRQ
+category: installation
 ---
-At the window in the prayer room, St. Bartholomew Church, Halle (Saale)
+St. Bartholomew Church, Halle (Saale)
 
-The videocamera records the window in the prayer room. This recording is projected on the window in real time.
+The Performer in video digs out his own shadow.
+Then the shadowy void was left on the floor.
+Slowly, it fills with light.
 
-Through this process the sunlight of window is endlessly copied and converted into digital light.
-
+영상 속 퍼포머는 자신의 그림자를 파낸다.
+그러자 바닥에는 그림자 모양의 텅 빈 자리가 남았다.
+이곳은 빛으로 차오른다.

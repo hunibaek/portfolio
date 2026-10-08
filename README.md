@@ -16,6 +16,7 @@ content/works/2026-my-new-work/
 title: 작품 제목
 year: 2026
 medium: UV LED, photochromic paint
+category: performance, installation   ← 왼쪽 필터 분류 (performance / installation / 2d works, 여러 개 가능)
 video: https://vimeo.com/123456789     ← (선택) 여러 줄 가능, YouTube도 가능
 ---
 여기부터 자유 텍스트. 빈 줄 = 문단 구분.
@@ -25,6 +26,12 @@ video: https://vimeo.com/123456789     ← (선택) 여러 줄 가능, YouTube�
 - 영상 파일은 올리지 말고 Vimeo/YouTube 링크를 쓰세요(무료 호스팅 용량 한도 때문).
 - 사진은 자동으로 800 / 1600 / 2400px 3단계(JPEG 품질 86)로 만들어지고, 브라우저가 화면에 맞는 것을 고릅니다(맥북 같은 레티나 화면은 2400px). 사진을 클릭하면 **원본**이 열립니다. 원본은 그대로 올려도 됩니다.
 - 원본도 사이트에 함께 올라가므로 GitHub Pages 한도(사이트 1GB)를 봐야 합니다. 사진 1장이 약 10MB면 80~100장 정도가 한계입니다. 넘으면 원본을 5MB 안팎으로 줄여서 넣으세요.
+
+## 작품 분류 (All / Performance / Installation / 2D works)
+- 각 작품 `info.txt`의 `category:` 줄로 정합니다. 쉼표로 여러 개를 쓰면 여러 필터에 모두 나옵니다.
+- 쓸 수 있는 값: `performance`, `installation`, `2d works`
+- 필터를 누르면 왼쪽 목록과 썸네일 격자가 함께 걸러지고, 다른 페이지로 넘어가도 선택이 유지됩니다.
+- 아무 작품도 없는 분류는 필터에 표시되지 않습니다.
 
 ## 유튜브 / Vimeo 영상 넣기
 1. 영상을 YouTube(또는 Vimeo)에 먼저 올립니다. 공개 범위는 **일부 공개(Unlisted)**여도 됩니다. **비공개(Private)는 다른 사람에게 안 보입니다.**

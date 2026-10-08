@@ -2,6 +2,7 @@ title: Lightpractice
 year: 2026
 medium: Interactive performance, 16:00, 7 performers and viewers, luminous sphere with 2650-lumen LED lamp
 video: https://youtu.be/DiqTDcrUmQ4
+category: performance
 ---
 Berlin, Germany
 

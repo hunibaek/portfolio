@@ -2,6 +2,7 @@ title: Pendlum
 year: 2023
 medium: Performance with 5 persons, 07:01”
 video:https://youtu.be/PSSiiNGZoXg?si=FFQ_K47AkjeitU6d
+category: performance
 ---
 VERKSMIÐJAN Á HJALTEYRI, Iceland
 

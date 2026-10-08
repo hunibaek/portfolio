@@ -2,6 +2,7 @@ title: mov ac, 0, II
 year: 2024
 medium: Light installation, 50x70x120 cm, 3x LED lamp, Arduino, gravestone, aluminum plate
 Video: https://youtu.be/JxjlCYKHBrw?si=CkAjrQ5O-RKVqrp_
+category: installation
 ---
 Berlin, Germany
 

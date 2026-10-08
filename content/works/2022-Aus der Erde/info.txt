@@ -2,13 +2,10 @@ title: Aus der Erde
 year: 2022
 medium: Video, 8:32, 62" monitor
 video: https://youtu.be/TGm7DkUAEPs
+category: installation
 ---
 St. Bartholomew Church, Halle, Germany
 
-The videocamera records the window in the prayer room. This recording is projected on the window in real time.
 
-Through this process the sunlight of window is endlessly copied and converted into digital light.
 
-비디오카메라가 기도실의 창문을 촬영한다. 이 영상은 실시간으로 다시 그 창문 위에 투사된다.
-
-이 과정을 통해 창문으로 들어오는 햇빛은 끝없이 복제되며 디지털 빛으로 변환된다.
+비디오카메라가 기도실 창문을 촬영하고, 그 영상은 실시간으로 같은 창문 위에 다시 투사된다. 이 순환 속에서 창문의 햇빛은 끝없이 복제되며 디지털 빛으로 바뀐다.

@@ -3,6 +3,7 @@ year: 2024
 medium: Installation, 20x10x120 cm, metronome, stepper motor, Arduino, cable
 Video: https://youtu.be/JxjlCYKHBrw?si=miMP8NL4lO_3J2Zm&t=25
 
+category: installation
 ---
 Berlin, Germany
 

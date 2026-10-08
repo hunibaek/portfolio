@@ -20,6 +20,18 @@ SIZES = (800, 1600, 2400)   # 800: grid + phone, 1600: normal screens, 2400: ret
 QUALITY = 86                 # JPEG quality; 4:4:4 chroma (no colour smearing)
 THUMB_MAX = 800
 PDF_LANGS = [("en", "English"), ("de", "Deutsch"), ("ko", "한국어")]
+# filter above the work list. info.txt: "category: performance, installation" (one or more, comma separated)
+CATEGORIES = [("performance", "Performance"), ("installation", "Installation"), ("2d", "2D works")]
+
+
+def cat_keys(value):
+    out = []
+    for c in value.split(","):
+        c = c.strip().lower().replace(" ", "")
+        c = {"2dworks": "2d", "2dwork": "2d", "performances": "performance", "installations": "installation"}.get(c, c)
+        if c and c not in out:
+            out.append(c)
+    return out
 
 
 # ---------- text helpers ----------
@@ -150,6 +162,15 @@ nav a{text-decoration:none;text-transform:uppercase;color:var(--menu)}
 nav .links a{text-decoration:underline}
 nav .works a{color:var(--list)}
 .copy{margin:34px 0 0;font-size:10px;color:#555;line-height:1.5}
+nav .about{margin-top:4px}
+.filter{margin:18px 0;line-height:var(--menu-lh);text-transform:uppercase;color:#444}
+.filter a{text-decoration:none;color:var(--list);cursor:pointer}
+.filter a:hover,.filter a.on{color:#fff}
+.foot{margin:34px 0 0;font-size:10px;color:#555;line-height:1.7}
+.foot a{text-decoration:none;text-transform:uppercase;color:var(--menu)}
+html[data-f="performance"] [data-cat]:not([data-cat~="performance"]),
+html[data-f="installation"] [data-cat]:not([data-cat~="installation"]),
+html[data-f="2d"] [data-cat]:not([data-cat~="2d"]){display:none}
 nav .works a::before{content:"_"}
 nav a.cur,nav .works a.cur{background:var(--cur-bg);color:var(--cur-fg);padding:1px 4px;margin-left:-4px}
 main{min-width:0}
@@ -202,6 +223,8 @@ html.lock{overflow:hidden}
  #menu .works a{color:var(--list)}
  #menu .works a::before{content:"_"}
  #menu a.cur{background:#fff;color:var(--cur-fg);padding:2px 5px;margin-left:-5px}
+ #menu .filter{font-size:14px;line-height:2.3;margin:4px 0 14px}
+ #menu .foot{font-size:12px}
  .wrap{display:block;padding:52px 0 44px}
  nav{display:none}
  aside{position:static;max-height:none;overflow:visible;padding:28px 14px 0}
@@ -252,6 +275,19 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 <div class="zone prev" title="Previous"></div><div class="zone next" title="Next"></div>
 <div class="bar"><span class="count"></span><button class="close" type="button">Close ×</button></div></div>
 <script>
+(function(){            /* category filter: All / Performance / Installation / 2D works */
+  var root=document.documentElement,f='all';
+  try{f=localStorage.getItem('workfilter')||'all';}catch(e){}
+  function set(v){
+    if(!document.querySelector('.filter a[data-f="'+v+'"]'))v='all';
+    if(v==='all')root.removeAttribute('data-f');else root.setAttribute('data-f',v);
+    [].forEach.call(document.querySelectorAll('.filter a'),function(a){a.classList.toggle('on',a.dataset.f===v);});
+    try{localStorage.setItem('workfilter',v);}catch(e){}
+  }
+  [].forEach.call(document.querySelectorAll('.filter a'),function(a){
+    a.addEventListener('click',function(e){e.preventDefault();set(a.dataset.f);});});
+  set(f);
+})();
 (function(){            /* phone: Menu button, Info sheet */
   var menu=document.getElementById('menu'),mb=document.getElementById('mbtn');
   if(mb)mb.addEventListener('click',function(){
@@ -336,24 +372,28 @@ def page(title, nav_html, main_html, aside_html, base="", name="", work_head="",
 
 
 def build_nav(base, site, works, current):
-    def a(href, label, key):
+    """Left column: name / About-Contact / filter / works A-Z / Instagram-YouTube / ©"""
+    def a(href, label, key, cls_li=""):
         cls = ' class="cur"' if key == current else ""
-        return f'<li><a href="{base}{href}"{cls}>{html.escape(label)}</a></li>'
+        li = f' class="{cls_li}"' if cls_li else ""
+        return f'<li{li}><a href="{base}{href}"{cls}>{html.escape(label)}</a></li>'
 
-    top = "".join([
-        f'<li><a href="{base}index.html">{html.escape(site["name"])}</a></li>',
-        a("index.html", "Portfolio", "_portfolio"),
-        a("about/index.html", "About / Contact", "_about"),
-    ])
-    links = "".join(
-        f'<li><a href="{html.escape(u)}" target="_blank" rel="noopener">{html.escape(l)}</a></li>'
-        for l, u in site["links"])
+    top = (f'<li><a href="{base}index.html">{html.escape(site["name"])}</a></li>'
+           + a("about/index.html", "About / Contact", "_about", "about"))
+    used = {c for w in works for c in w["cats"]}
+    opts = [("all", "All")] + [(k, l) for k, l in CATEGORIES if k in used]
+    sl = ' <span class="sl">/</span> '
+    filt = sl.join(f'<a href="#" role="button" data-f="{k}">{html.escape(l).replace(" ", "&nbsp;")}</a>' for k, l in opts)
     items = "".join(                                   # left list: A-Z (the home grid stays newest-first)
-        a(f"works/{w['slug']}/index.html", w["title"], w["slug"])
+        f'<li data-cat="{" ".join(w["cats"])}">'
+        + a(f"works/{w['slug']}/index.html", w["title"], w["slug"])[4:]
         for w in sorted(works, key=lambda w: w["title"].casefold()))
-    return (f'<ul>{top}</ul><ul class="links">{links}</ul>'
+    links = sl.join(
+        f'<a href="{html.escape(u)}" target="_blank" rel="noopener">{html.escape(l)}</a>'
+        for l, u in site["links"])
+    return (f'<ul>{top}</ul><p class="filter">{filt}</p>'
             f'<ul class="works">{items}</ul>'
-            f'<p class="copy">{html.escape(site["copyright"])}</p>')
+            f'<p class="foot">{links}<br>{html.escape(site["copyright"])}</p>')
 
 
 # ---------- main ----------
@@ -399,6 +439,7 @@ def main():
             "title": meta.get("title", d.name),
             "year": meta.get("year", ""),
             "medium": meta.get("medium", ""),
+            "cats": cat_keys(meta.get("category", "")),
             "videos": [v for k, v in multi if k == "video"],
             "body": body,
             "imgs": [p for p in imgs if p != cover or p.stem.lower() != "cover"],
@@ -407,7 +448,7 @@ def main():
 
     def archive(base, extra_cls=""):
         cells = "".join(
-            f'<a href="{base}works/{w["slug"]}/index.html"><div class="th">'
+            f'<a href="{base}works/{w["slug"]}/index.html" data-cat="{" ".join(w["cats"])}"><div class="th">'
             f'<img src="{base}works/{w["slug"]}/_thumb.jpg" loading="lazy" alt="{html.escape(w["title"])}"></div>'
             f'<span>{html.escape(w["title"])}</span></a>' for w in works)
         return f'<div class="grid {extra_cls}">{cells}</div>'
