@@ -288,7 +288,10 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
   }
   [].forEach.call(document.querySelectorAll('.filter a'),function(a){
     a.addEventListener('click',function(e){set(a.dataset.f);
-      if(a.parentNode.dataset.home)e.preventDefault();});});   /* other pages: go to the home grid */
+      if(a.parentNode.dataset.home){e.preventDefault();      /* home: close the phone menu, show the grid */
+        var m=document.getElementById('menu'),b=document.getElementById('mbtn');
+        if(m&&m.classList.contains('on')){m.classList.remove('on');if(b)b.textContent='Menu';
+          root.classList.remove('lock');window.scrollTo(0,0);}}});});   /* other pages: go to the home grid */
   set(f);
   [].forEach.call(document.querySelectorAll('a.home'),function(a){      /* name = whole archive */
     a.addEventListener('click',function(){try{localStorage.setItem('workfilter','all');}catch(e){} set('all');});});
