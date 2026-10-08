@@ -1,4 +1,7 @@
 name: Seunghoon Baek
+name_ko: 백승훈
+born: 1990
+job: Visual artist
 description: Seunghoon Baek (b. 1990, South Korea) is a media and performance artist based in Berlin and South Korea. He materializes light. To materialize light is to materialize perception.
 link: Instagram | https://www.instagram.com/h000ni
 link: YouTube | https://www.youtube.com/playlist?list=PLLY-P9Sss-UGL63twdHEOShvvvSB-GGxd

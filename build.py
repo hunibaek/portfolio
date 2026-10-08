@@ -5,7 +5,7 @@ Layout: left = index list, center = images/videos, right = text column.
 Bottom of every page: archive grid of all works.
 Only dependency: Pillow  (pip install pillow)
 """
-import datetime, html
+import datetime, html, json
 import re
 import shutil
 from pathlib import Path
@@ -338,18 +338,24 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 </script>"""
 
 
-SHARE = {"url": "", "desc": "", "img": False}
+SHARE = {"url": "", "desc": "", "img": False, "name": ""}
+PAGES = []   # every page path, for sitemap.xml (Google search)
 
 
-def head_extra(title, base, path=""):
-    """Description, link-preview (Open Graph) and favicon tags. Image files are made in main()."""
+def head_extra(title, base, path="", desc="", jsonld=""):
+    """Description, canonical URL, link-preview (Open Graph), favicon and Google (JSON-LD) tags."""
     if not SHARE["url"]:
         return ""
-    t, d = html.escape(title, quote=True), html.escape(SHARE["desc"], quote=True)
+    PAGES.append(path)
+    t, d = html.escape(title, quote=True), html.escape(desc or SHARE["desc"], quote=True)
     out = [f'<meta name="description" content="{d}">',
+           f'<link rel="canonical" href="{SHARE["url"]}/{path}">',
+           f'<meta property="og:site_name" content="{html.escape(SHARE["name"], quote=True)}">',
            f'<meta property="og:type" content="website"><meta property="og:title" content="{t}">',
            f'<meta property="og:description" content="{d}">',
            f'<meta property="og:url" content="{SHARE["url"]}/{path}">']
+    if jsonld:
+        out.append(f'<script type="application/ld+json">{jsonld}</script>')
     if SHARE["img"]:
         out += [f'<meta property="og:image" content="{SHARE["url"]}/share.jpg">',
                 '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
@@ -358,7 +364,7 @@ def head_extra(title, base, path=""):
     return "\n".join(out)
 
 
-def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en", path=""):
+def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en", path="", desc="", jsonld=""):
     """work_head (work pages only) = title line for the phone's bottom bar; it also switches on the swipe layout."""
     bar = (f'<header id="mbar"><a href="{base}index.html">{html.escape(name)}</a>'
            f'<button type="button" id="mbtn">Menu</button></header><div id="menu">{nav_html}</div>')
@@ -371,7 +377,7 @@ def page(title, nav_html, main_html, aside_html, base="", name="", work_head="",
 <html lang="{lang}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
-{head_extra(title, base, path)}
+{head_extra(title, base, path, desc, jsonld)}
 <style>{CSS}</style></head>
 <body{cls}>{bar}<div class="wrap">
 <nav>{nav_html}</nav>
@@ -426,6 +432,24 @@ def main():
 
     # ---- link preview / description / favicon (content/share.jpg = the picture shown when the link is shared)
     SHARE["url"] = (smeta.get("url") or "https://seunghoonbaek.com").rstrip("/")
+    SHARE["name"] = site["name"]
+    name_ko = smeta.get("name_ko", "")
+    home_title = smeta.get("title") or " ".join(x for x in (site["name"], name_ko) if x) + " — Artist"
+    person = {   # tells Google which "Seunghoon Baek" this site is about
+        "@context": "https://schema.org", "@type": "Person",
+        "name": site["name"], "url": SHARE["url"] + "/",
+        "jobTitle": smeta.get("job", "Visual artist"),
+        "sameAs": [u for _, u in site["links"] if "playlist" not in u],
+    }
+    if name_ko:
+        person["alternateName"] = name_ko
+    if smeta.get("born"):
+        person["birthDate"] = smeta["born"]
+    if smeta.get("based"):
+        person["homeLocation"] = smeta["based"]
+    if smeta.get("email"):
+        person["email"] = "mailto:" + smeta["email"]
+    person_ld = json.dumps(person, ensure_ascii=False).replace("</", "<\\/")
     _, hb0, _ = parse_txt(CONTENT / "home.txt")
     first = next((p.strip() for p in re.split(r"\n\s*\n", hb0) if p.strip() and not p.strip().startswith("(")), "")
     SHARE["desc"] = smeta.get("description") or (first[:200] if first else f'{site["name"]} — portfolio')
@@ -474,18 +498,22 @@ def main():
         imgs = []
         for im in w["imgs"]:
             srcset, mid, big, orig = variants(im, odir, im.stem)
+            alt = f'{w["title"]}{", " + w["year"] if w["year"] else ""} — {site["name"]}'
             imgs.append(f'<img src="{html.escape(mid)}" srcset="{html.escape(srcset)}" '
                         f'sizes="(max-width:860px) 100vw, 910px" data-big="{html.escape(big)}" '
-                        f'data-full="{html.escape(orig)}" loading="lazy" alt="{html.escape(w["title"])}">')
+                        f'data-full="{html.escape(orig)}" loading="lazy" alt="{html.escape(alt, quote=True)}">')
         resize(w["cover"], odir / "_thumb.jpg", THUMB_MAX)
         media = imgs + [embed(v) for v in w["videos"]]
         head = ", ".join(x for x in (w["medium"], w["year"]) if x)
+        plain = re.sub(r"[*#\[\]]|\(https?://[^)]*\)", "", w["body"]).split("\n\n")[0].replace("\n", " ").strip()
+        wdesc = f'{w["title"]}{" (" + w["year"] + ")" if w["year"] else ""} by {site["name"]}' + (f'. {head}' if head else '') + (f'. {plain}' if plain else '')
+        wdesc = wdesc[:200].rsplit(" ", 1)[0] + "…" if len(wdesc) > 200 else wdesc
         aside = (f'<div class="head"><em>{html.escape(w["title"])}</em>'
                  f'{", " + html.escape(head) if head else ""}.</div>{para(w["body"])}')
         (odir / "index.html").write_text(
             page(f'{w["title"]} – {site["name"]}', build_nav("../../", site, works, w["slug"]),
                  "\n".join(media) + archive("../../", "archive"), aside,
-                 base="../../", name=site["name"], path=f'works/{w["slug"]}/',
+                 base="../../", name=site["name"], path=f'works/{w["slug"]}/', desc=wdesc,
                  work_head=(f'<em>{html.escape(w["title"])}</em>' + (f' · {html.escape(w["year"])}' if w["year"] else ""))),
             encoding="utf-8")
 
@@ -508,8 +536,8 @@ def main():
     # ---- home: archive grid + intro text + PDF downloads in the right column
     _, hbody, _ = parse_txt(CONTENT / "home.txt")
     (OUT / "index.html").write_text(
-        page(site["name"], build_nav("", site, works, "_portfolio"),
-             archive(""), para(hbody) + pdf_html, base="", name=site["name"]), encoding="utf-8")
+        page(home_title, build_nav("", site, works, "_portfolio"),
+             archive(""), para(hbody) + pdf_html, base="", name=site["name"], jsonld=person_ld), encoding="utf-8")
 
     # ---- about: about.txt in the centre, contact.txt in the right column
     ameta, abody, _ = parse_txt(CONTENT / "about.txt")
@@ -523,9 +551,15 @@ def main():
     (OUT / "about").mkdir(parents=True, exist_ok=True)
     (OUT / "about" / "index.html").write_text(
         page(f'About – {site["name"]}', build_nav("../", site, works, "_about"),
-             main_html + archive("../", "archive all", filtered=False), para(cbody), base="../", name=site["name"], path="about/"),
+             main_html + archive("../", "archive all", filtered=False), para(cbody), base="../", name=site["name"], path="about/",
+             jsonld=person_ld),
         encoding="utf-8")
 
+    today = datetime.date.today().isoformat()
+    urls = "".join(f"<url><loc>{SHARE['url']}/{p}</loc><lastmod>{today}</lastmod></url>" for p in PAGES)
+    (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
+        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n', encoding="utf-8")
+    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SHARE['url']}/sitemap.xml\n")
     (OUT / ".nojekyll").write_text("")
     print(f"built {len(works)} works, {len(pdf_links)} PDFs -> {OUT}")
 
