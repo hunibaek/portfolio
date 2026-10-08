@@ -290,6 +290,8 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
     a.addEventListener('click',function(e){set(a.dataset.f);
       if(a.parentNode.dataset.home)e.preventDefault();});});   /* other pages: go to the home grid */
   set(f);
+  [].forEach.call(document.querySelectorAll('a.home'),function(a){      /* name = whole archive */
+    a.addEventListener('click',function(){try{localStorage.setItem('workfilter','all');}catch(e){} set('all');});});
 })();
 (function(){            /* phone: Menu button, Info sheet */
   var menu=document.getElementById('menu'),mb=document.getElementById('mbtn');
@@ -381,7 +383,7 @@ def build_nav(base, site, works, current):
         li = f' class="{cls_li}"' if cls_li else ""
         return f'<li{li}><a href="{base}{href}"{cls}>{html.escape(label)}</a></li>'
 
-    top = (f'<li><a href="{base}index.html">{html.escape(site["name"])}</a></li>'
+    top = (f'<li><a href="{base}index.html" class="home" data-f="all">{html.escape(site["name"])}</a></li>'
            + a("about/index.html", "About / Contact", "_about", "about"))
     used = {c for w in works for c in w["cats"]}
     opts = [("all", "All")] + [(k, l) for k, l in CATEGORIES if k in used]
