@@ -341,9 +341,10 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 SHARE = {"url": "", "desc": "", "img": False, "name": "", "icon": False}
 ANALYTICS = {"goatcounter": ""}   # site.txt "goatcounter: CODE" -> visitor statistics (no cookies)
 PAGES = []   # every page path, for sitemap.xml (Google search)
+IMAGES = {}  # page path -> [(image url, caption)] for the image part of sitemap.xml (Google Images)
 
 
-def head_extra(title, base, path="", desc="", jsonld=""):
+def head_extra(title, base, path="", desc="", jsonld="", ogimg=""):
     """Description, canonical URL, link-preview (Open Graph), favicon and Google (JSON-LD) tags."""
     if not SHARE["url"]:
         return ""
@@ -357,7 +358,10 @@ def head_extra(title, base, path="", desc="", jsonld=""):
            f'<meta property="og:url" content="{SHARE["url"]}/{path}">']
     if jsonld:
         out.append(f'<script type="application/ld+json">{jsonld}</script>')
-    if SHARE["img"]:
+    if ogimg:   # work pages: the work's own photo when the link is shared
+        out += [f'<meta property="og:image" content="{ogimg}">',
+                '<meta name="twitter:card" content="summary_large_image">']
+    elif SHARE["img"]:
         out += [f'<meta property="og:image" content="{SHARE["url"]}/share.jpg">',
                 '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
                 '<meta name="twitter:card" content="summary_large_image">']
@@ -376,7 +380,7 @@ def analytics():
             'async src="//gc.zgo.at/count.js"></script>')
 
 
-def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en", path="", desc="", jsonld=""):
+def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en", path="", desc="", jsonld="", ogimg=""):
     """work_head (work pages only) = title line for the phone's bottom bar; it also switches on the swipe layout."""
     bar = (f'<header id="mbar"><a href="{base}index.html" class="home">{html.escape(name)}</a>'
            f'<button type="button" id="mbtn">Menu</button></header><div id="menu">{nav_html}</div>')
@@ -389,7 +393,7 @@ def page(title, nav_html, main_html, aside_html, base="", name="", work_head="",
 <html lang="{lang}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
-{head_extra(title, base, path, desc, jsonld)}
+{head_extra(title, base, path, desc, jsonld, ogimg)}
 <style>{CSS}</style>{analytics()}</head>
 <body{cls}>{bar}<div class="wrap">
 <nav>{nav_html}</nav>
@@ -518,10 +522,15 @@ def main():
     # ---- work pages: all photos in order, then videos last (NONOTAK order)
     for w in works:
         odir = OUT / "works" / w["slug"]
-        imgs = []
-        for im in w["imgs"]:
-            srcset, mid, big, orig = variants(im, odir, im.stem)
-            alt = f'{w["title"]}{", " + w["year"] if w["year"] else ""} — {site["name"]}'
+        imgs, pics = [], []
+        wpath = f'works/{w["slug"]}/'
+        kind = w["medium"].split(",")[0].strip()
+        for n, im in enumerate(w["imgs"], 1):
+            # file names like lightpractice-01-1600.jpg (Google reads file names too)
+            srcset, mid, big, orig = variants(im, odir, f'{w["slug"]}-{n:02d}')
+            alt = (f'{w["title"]}{" (" + w["year"] + ")" if w["year"] else ""}'
+                   f'{", " + kind if kind else ""} by {site["name"]}{f" — view {n}" if len(w["imgs"]) > 1 else ""}')
+            pics.append((f'{SHARE["url"]}/{wpath}{big}', alt))
             imgs.append(f'<img src="{html.escape(mid)}" srcset="{html.escape(srcset)}" '
                         f'sizes="(max-width:860px) 100vw, 910px" data-big="{html.escape(big)}" '
                         f'data-full="{html.escape(orig)}" loading="lazy" alt="{html.escape(alt, quote=True)}">')
@@ -533,10 +542,22 @@ def main():
         wdesc = wdesc[:200].rsplit(" ", 1)[0] + "…" if len(wdesc) > 200 else wdesc
         aside = (f'<div class="head"><em>{html.escape(w["title"])}</em>'
                  f'{", " + html.escape(head) if head else ""}.</div>{para(w["body"])}')
+        IMAGES[wpath] = pics
+        art = {"@context": "https://schema.org", "@type": "VisualArtwork", "name": w["title"],
+               "creator": {"@type": "Person", "name": site["name"], "url": SHARE["url"] + "/"},
+               "url": f'{SHARE["url"]}/{wpath}', "image": [u for u, _ in pics]}
+        if w["year"]:
+            art["dateCreated"] = w["year"]
+        if w["medium"]:
+            art["artMedium"] = w["medium"]
+        if plain:
+            art["description"] = plain[:500]
+        art_ld = json.dumps(art, ensure_ascii=False).replace("</", "<\\/")
         (odir / "index.html").write_text(
             page(f'{w["title"]} – {site["name"]}', build_nav("../../", site, works, w["slug"]),
                  "\n".join(media) + archive("../../", "archive"), aside,
-                 base="../../", name=site["name"], path=f'works/{w["slug"]}/', desc=wdesc,
+                 base="../../", name=site["name"], path=wpath, desc=wdesc, jsonld=art_ld,
+                 ogimg=pics[0][0] if pics else "",
                  work_head=(f'<em>{html.escape(w["title"])}</em>' + (f' · {html.escape(w["year"])}' if w["year"] else ""))),
             encoding="utf-8")
 
@@ -579,9 +600,12 @@ def main():
         encoding="utf-8")
 
     today = datetime.date.today().isoformat()
-    urls = "".join(f"<url><loc>{SHARE['url']}/{p}</loc><lastmod>{today}</lastmod></url>" for p in PAGES)
+    def imgtags(p):
+        return "".join(f"<image:image><image:loc>{html.escape(u)}</image:loc></image:image>" for u, _ in IMAGES.get(p, []))
+    urls = "".join(f"<url><loc>{SHARE['url']}/{p}</loc><lastmod>{today}</lastmod>{imgtags(p)}</url>" for p in PAGES)
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
-        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n', encoding="utf-8")
+        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        f'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">{urls}</urlset>\n', encoding="utf-8")
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SHARE['url']}/sitemap.xml\n")
     (OUT / ".nojekyll").write_text("")
     print(f"built {len(works)} works, {len(pdf_links)} PDFs -> {OUT}")
