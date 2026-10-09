@@ -339,6 +339,7 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 
 
 SHARE = {"url": "", "desc": "", "img": False, "name": ""}
+ANALYTICS = {"goatcounter": ""}   # site.txt "goatcounter: CODE" -> visitor statistics (no cookies)
 PAGES = []   # every page path, for sitemap.xml (Google search)
 
 
@@ -364,6 +365,14 @@ def head_extra(title, base, path="", desc="", jsonld=""):
     return "\n".join(out)
 
 
+def analytics():
+    code = ANALYTICS["goatcounter"]
+    if not code:
+        return ""
+    return (f'<script data-goatcounter="https://{html.escape(code)}.goatcounter.com/count" '
+            'async src="//gc.zgo.at/count.js"></script>')
+
+
 def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en", path="", desc="", jsonld=""):
     """work_head (work pages only) = title line for the phone's bottom bar; it also switches on the swipe layout."""
     bar = (f'<header id="mbar"><a href="{base}index.html" class="home">{html.escape(name)}</a>'
@@ -378,7 +387,7 @@ def page(title, nav_html, main_html, aside_html, base="", name="", work_head="",
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
 {head_extra(title, base, path, desc, jsonld)}
-<style>{CSS}</style></head>
+<style>{CSS}</style>{analytics()}</head>
 <body{cls}>{bar}<div class="wrap">
 <nav>{nav_html}</nav>
 <main>{main_html}</main>
@@ -423,6 +432,7 @@ def main():
     OUT.mkdir(parents=True)
 
     smeta, _, smulti = parse_txt(CONTENT / "site.txt")
+    ANALYTICS["goatcounter"] = re.sub(r"[^a-z0-9-]", "", smeta.get("goatcounter", "").lower())
     site = {
         "name": smeta.get("name", "Artist Name"),
         "copyright": smeta.get("copyright") or f"© {datetime.date.today().year} {smeta.get('name', 'Artist Name')}",
