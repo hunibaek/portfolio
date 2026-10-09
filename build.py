@@ -338,7 +338,7 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 </script>"""
 
 
-SHARE = {"url": "", "desc": "", "img": False, "name": ""}
+SHARE = {"url": "", "desc": "", "img": False, "name": "", "icon": False}
 ANALYTICS = {"goatcounter": ""}   # site.txt "goatcounter: CODE" -> visitor statistics (no cookies)
 PAGES = []   # every page path, for sitemap.xml (Google search)
 
@@ -360,8 +360,11 @@ def head_extra(title, base, path="", desc="", jsonld=""):
     if SHARE["img"]:
         out += [f'<meta property="og:image" content="{SHARE["url"]}/share.jpg">',
                 '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
-                '<meta name="twitter:card" content="summary_large_image">',
-                f'<link rel="icon" type="image/png" href="{base}favicon.png">']
+                '<meta name="twitter:card" content="summary_large_image">']
+    if SHARE["icon"]:   # small picture next to the site name in Google results and browser tabs
+        out += [f'<link rel="icon" href="{base}favicon.ico" sizes="48x48">',
+                f'<link rel="icon" type="image/png" sizes="192x192" href="{base}favicon.png">',
+                f'<link rel="apple-touch-icon" href="{base}apple-touch-icon.png">']
     return "\n".join(out)
 
 
@@ -468,10 +471,20 @@ def main():
         im = ImageOps.exif_transpose(Image.open(share_src)).convert("RGB")
         og = ImageOps.fit(im, (1200, 630), Image.LANCZOS, centering=(0.5, 0.5))
         og.save(OUT / "share.jpg", quality=88, optimize=True, progressive=True)
-        ImageOps.fit(im, (64, 64), Image.LANCZOS, centering=(0.5, 0.5)).save(OUT / "favicon.png", optimize=True)
         SHARE["img"] = True
     else:
         print("  ! no content/share.jpg — link previews will have no picture")
+    # site icon: content/favicon.png (square picture); falls back to share.jpg
+    icon_src = next((CONTENT / n for n in ("favicon.png", "favicon.jpg", "favicon.jpeg") if (CONTENT / n).exists()), share_src)
+    if icon_src:
+        ic = ImageOps.exif_transpose(Image.open(icon_src)).convert("RGBA")
+        sq = lambda n: ImageOps.fit(ic, (n, n), Image.LANCZOS, centering=(0.5, 0.5))
+        sq(192).save(OUT / "favicon.png", optimize=True)            # Google wants a multiple of 48px
+        sq(180).convert("RGB").save(OUT / "apple-touch-icon.png")   # iPhone home screen
+        sq(48).save(OUT / "favicon.ico", sizes=[(48, 48), (32, 32), (16, 16)])
+        SHARE["icon"] = True
+    else:
+        print("  ! no content/favicon.png — Google shows a grey globe instead of an icon")
 
     works = []
     wdir = CONTENT / "works"
