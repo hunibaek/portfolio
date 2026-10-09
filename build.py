@@ -432,6 +432,56 @@ def build_nav(base, site, works, current):
             f'<p class="foot">{links}<br>{html.escape(site["copyright"])}</p>')
 
 
+# ---------- llms.txt: a plain-text summary of the artist and the works for AI assistants ----------
+def _plain(t):
+    t = re.sub(r"\[([^\]]+)\]\((?:https?://|mailto:)[^)]*\)", r"\1", t)
+    return re.sub(r"[*]", "", t).strip()
+
+
+def _english(t):
+    """Paragraphs written mostly in Latin letters (the English part of a bilingual text)."""
+    out = []
+    for para_ in re.split(r"\n\s*\n", t):
+        q = para_.strip()
+        letters = [c for c in q if c.isalpha()]
+        if q and q != "—" and letters and sum(c.isascii() for c in letters) / len(letters) > 0.8:
+            out.append(" ".join(q.split()))
+    return out
+
+
+def write_llms(site, smeta, works):
+    url = SHARE["url"]
+    lines = [f'# {site["name"]}' + (f' ({smeta["name_ko"]})' if smeta.get("name_ko") else ""), "",
+             f'> {SHARE["desc"]}', ""]
+    _, about, _ = parse_txt(CONTENT / "about.txt")
+    sections = re.split(r"(?m)^# ", about)
+    for sec in sections:
+        if not sec.strip():
+            continue
+        head, _, body = sec.partition("\n")
+        if head.strip().lower() in ("statement", "bio"):
+            lines += ["## About", ""] + [_plain(x) + "\n" for x in _english(body)]
+    lines += ["## Works", ""]
+    for w in sorted(works, key=lambda w: w["year"], reverse=True):
+        first = next(iter(_english(w["body"])[1:2] or _english(w["body"])[:1]), "")
+        meta = ", ".join(x for x in (w["year"], w["medium"]) if x)
+        lines.append(f'- [{w["title"]}]({url}/works/{w["slug"]}/): {meta}.' + (f" {_plain(first)}" if first else ""))
+    lines.append("")
+    for sec in sections:
+        head, _, body = sec.partition("\n")
+        if head.strip() and head.strip().lower() not in ("statement", "bio"):
+            rows = [_plain(r) for r in body.strip().splitlines() if r.strip() and r.strip() != "—"]
+            if rows and all(any(c.isascii() and c.isalpha() for c in r) for r in rows):
+                lines += [f"## {head.strip()}", ""] + [f"- {r}" for r in rows] + [""]
+    lines += ["## Contact", ""]
+    _, cbody, _ = parse_txt(CONTENT / "contact.txt")
+    mail = smeta.get("email") or next(iter(re.findall(r"[\w.+-]+@[\w-]+\.[\w.]+", cbody)), "")
+    if mail:
+        lines.append(f"- Email: {mail}")
+    lines += [f"- {l}: {u}" for l, u in site["links"]] + [f"- Website: {url}/", ""]
+    (OUT / "llms.txt").write_text("\n".join(lines), encoding="utf-8")
+
+
 # ---------- main ----------
 def main():
     if OUT.exists():
@@ -606,7 +656,12 @@ def main():
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
         f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
         f'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">{urls}</urlset>\n', encoding="utf-8")
-    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SHARE['url']}/sitemap.xml\n")
+    # search engines and AI assistants (ChatGPT, Claude, Perplexity, Gemini) may read every page
+    bots = ["*", "Googlebot", "Bingbot", "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot",
+            "Claude-SearchBot", "Claude-User", "PerplexityBot", "Google-Extended", "Applebot"]
+    (OUT / "robots.txt").write_text("".join(f"User-agent: {b}\nAllow: /\n\n" for b in bots)
+                                    + f"Sitemap: {SHARE['url']}/sitemap.xml\n")
+    write_llms(site, smeta, works)
     (OUT / ".nojekyll").write_text("")
     print(f"built {len(works)} works, {len(pdf_links)} PDFs -> {OUT}")
 
