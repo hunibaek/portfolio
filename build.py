@@ -366,7 +366,7 @@ def head_extra(title, base, path="", desc="", jsonld=""):
 
 def page(title, nav_html, main_html, aside_html, base="", name="", work_head="", lang="en", path="", desc="", jsonld=""):
     """work_head (work pages only) = title line for the phone's bottom bar; it also switches on the swipe layout."""
-    bar = (f'<header id="mbar"><a href="{base}index.html">{html.escape(name)}</a>'
+    bar = (f'<header id="mbar"><a href="{base}index.html" class="home">{html.escape(name)}</a>'
            f'<button type="button" id="mbtn">Menu</button></header><div id="menu">{nav_html}</div>')
     work = ""
     if work_head:
