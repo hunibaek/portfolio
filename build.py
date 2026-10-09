@@ -339,7 +339,7 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 
 
 SHARE = {"url": "", "desc": "", "img": False, "name": "", "icon": False}
-ANALYTICS = {"goatcounter": ""}   # site.txt "goatcounter: CODE" -> visitor statistics (no cookies)
+ANALYTICS = {"goatcounter": "", "google": "", "bing": ""}   # site.txt "goatcounter: CODE" -> visitor statistics (no cookies)
 PAGES = []   # every page path, for sitemap.xml (Google search)
 IMAGES = {}  # page path -> [(image url, caption)] for the image part of sitemap.xml (Google Images)
 
@@ -374,9 +374,12 @@ def head_extra(title, base, path="", desc="", jsonld="", ogimg=""):
 
 def analytics():
     code = ANALYTICS["goatcounter"]
+    # site ownership checks for Google Search Console / Bing Webmaster Tools (site.txt: google_verify / bing_verify)
+    out = "".join(f'<meta name="{n}" content="{html.escape(v, quote=True)}">'
+                  for n, v in (("google-site-verification", ANALYTICS["google"]), ("msvalidate.01", ANALYTICS["bing"])) if v)
     if not code:
-        return ""
-    return (f'<script data-goatcounter="https://{html.escape(code)}.goatcounter.com/count" '
+        return out
+    return out + (f'<script data-goatcounter="https://{html.escape(code)}.goatcounter.com/count" '
             'async src="//gc.zgo.at/count.js"></script>')
 
 
@@ -490,6 +493,8 @@ def main():
 
     smeta, _, smulti = parse_txt(CONTENT / "site.txt")
     ANALYTICS["goatcounter"] = re.sub(r"[^a-z0-9-]", "", smeta.get("goatcounter", "").lower())
+    ANALYTICS["google"] = smeta.get("google_verify", "").strip()
+    ANALYTICS["bing"] = smeta.get("bing_verify", "").strip()
     site = {
         "name": smeta.get("name", "Artist Name"),
         "copyright": smeta.get("copyright") or f"© {datetime.date.today().year} {smeta.get('name', 'Artist Name')}",
