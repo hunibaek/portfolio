@@ -341,6 +341,7 @@ LIGHTBOX = """<div id="lb" aria-hidden="true"><img alt="">
 SHARE = {"url": "", "desc": "", "img": False, "name": "", "icon": False}
 ANALYTICS = {"goatcounter": "", "google": "", "bing": ""}   # site.txt "goatcounter: CODE" -> visitor statistics (no cookies)
 PAGES = []   # every page path, for sitemap.xml (Google search)
+HREFLANG = {}  # page path -> [(lang, path)] alternate language versions
 IMAGES = {}  # page path -> [(image url, caption)] for the image part of sitemap.xml (Google Images)
 
 
@@ -356,6 +357,7 @@ def head_extra(title, base, path="", desc="", jsonld="", ogimg=""):
            f'<meta property="og:type" content="website"><meta property="og:title" content="{t}">',
            f'<meta property="og:description" content="{d}">',
            f'<meta property="og:url" content="{SHARE["url"]}/{path}">']
+    out += [f'<link rel="alternate" hreflang="{lg}" href="{SHARE["url"]}/{pp}">' for lg, pp in HREFLANG.get(path, [])]
     if jsonld:
         out.append(f'<script type="application/ld+json">{jsonld}</script>')
     if ogimg:   # work pages: the work's own photo when the link is shared
@@ -430,6 +432,8 @@ def build_nav(base, site, works, current):
     links = sl.join(
         f'<a href="{html.escape(u)}" target="_blank" rel="noopener">{html.escape(l)}</a>'
         for l, u in site["links"])
+    if site.get("ko"):
+        links += sl + f'<a href="{base}ko/index.html" lang="ko">한국어</a>'
     return (f'<ul>{top}</ul><p class="filter"{home}>{filt}</p>'
             f'<ul class="works">{items}</ul>'
             f'<p class="foot">{links}<br>{html.escape(site["copyright"])}</p>')
@@ -513,14 +517,19 @@ def main():
         "jobTitle": smeta.get("job", "Visual artist"),
         "sameAs": [u for _, u in site["links"] if "playlist" not in u],
     }
-    if name_ko:
-        person["alternateName"] = name_ko
+    alt = [x for x in [name_ko] + [a.strip() for a in smeta.get("alt_names", "").split(",")] if x]
+    if alt:
+        person["alternateName"] = alt
     if smeta.get("born"):
         person["birthDate"] = smeta["born"]
     if smeta.get("based"):
         person["homeLocation"] = smeta["based"]
     if smeta.get("email"):
         person["email"] = "mailto:" + smeta["email"]
+    site["ko"] = bool(name_ko)
+    if site["ko"]:
+        for pth in ("", "ko/"):
+            HREFLANG[pth] = [("en", ""), ("ko", "ko/"), ("x-default", "")]
     person_ld = json.dumps(person, ensure_ascii=False).replace("</", "<\\/")
     _, hb0, _ = parse_txt(CONTENT / "home.txt")
     first = next((p.strip() for p in re.split(r"\n\s*\n", hb0) if p.strip() and not p.strip().startswith("(")), "")
@@ -637,6 +646,21 @@ def main():
     (OUT / "index.html").write_text(
         page(home_title, build_nav("", site, works, "_portfolio"),
              archive(""), para(hbody) + pdf_html, base="", name=site["name"], jsonld=person_ld), encoding="utf-8")
+
+    # ---- Korean home /ko/ : same archive grid, Korean text, Korean title (for searches like "백승훈 작가")
+    if site.get("ko"):
+        hangul = re.compile(r"[\uac00-\ud7a3]")
+        kbody = parse_txt(CONTENT / "home_ko.txt")[1] if (CONTENT / "home_ko.txt").exists() else \
+            "\n\n".join(q for q in re.split(r"\n\s*\n", hbody) if hangul.search(q))
+        kdesc = re.sub(r"\s+", " ", _plain(kbody.split("\n\n")[0]))[:200]
+        ktitle = smeta.get("title_ko") or f'{name_ko} 작가 ({site["name"]}) — {smeta.get("job_ko", "시각예술가")}'
+        kperson = dict(person, description=kdesc)
+        (OUT / "ko").mkdir(parents=True, exist_ok=True)
+        (OUT / "ko" / "index.html").write_text(
+            page(ktitle, build_nav("../", site, works, "_portfolio"), archive("../"),
+                 para(kbody) + pdf_html.replace('href="pdf/', 'href="../pdf/'), base="../", name=site["name"],
+                 lang="ko", path="ko/", desc=kdesc,
+                 jsonld=json.dumps(kperson, ensure_ascii=False).replace("</", "<\\/")), encoding="utf-8")
 
     # ---- about: about.txt in the centre, contact.txt in the right column
     ameta, abody, _ = parse_txt(CONTENT / "about.txt")
