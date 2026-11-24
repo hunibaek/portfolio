@@ -1,6 +1,6 @@
 title: Flash
 year: 2025
-medium: Performance, 21:53 min, arc welder, camera, projector
+medium: Performance, 21:53, arc welder, camera, projector
 video: https://youtu.be/cVkJjL_wdR8
 category: performance
 ---

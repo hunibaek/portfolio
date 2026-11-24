@@ -605,8 +605,8 @@ def main():
         resize(w["cover"], odir / "_thumb.jpg", THUMB_MAX)
         media = imgs + [embed(v) for v in w["videos"]]
         head = ", ".join(x for x in (w["medium"], w["year"]) if x)
-        plain = re.sub(r"[*#\[\]]|\(https?://[^)]*\)", "", w["body"]).split("\n\n")[0].replace("\n", " ").strip()
-        wdesc = f'{w["title"]}{" (" + w["year"] + ")" if w["year"] else ""} by {site["name"]}' + (f'. {head}' if head else '') + (f'. {plain}' if plain else '')
+        plain = ". ".join(q.replace("\n", " ").strip() for q in re.sub(r"[*#\[\]]|\(https?://[^)]*\)", "", w["body"]).split("\n\n")[:2] if q.strip())   # place + first paragraph
+        wdesc = f'{w["title"]}{" (" + w["year"] + ")" if w["year"] else ""} by {site["name"]}' + (f'. {w["medium"]}' if w["medium"] else '') + (f'. {plain}' if plain else '')
         wdesc = wdesc[:200].rsplit(" ", 1)[0] + "…" if len(wdesc) > 200 else wdesc
         aside = (f'<div class="head"><em>{html.escape(w["title"])}</em>'
                  f'{", " + html.escape(head) if head else ""}.</div>{para(w["body"])}')
