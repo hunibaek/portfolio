@@ -1,11 +1,10 @@
-title: Rendering the Invisible
+title: Rendering the Invisible #1
 year: 2026
 medium: Performance, 25:22, luminous sphere lamp, oil pencil
 video: https://youtu.be/qEwG8h8-FYU
 category: performance
 ---
 Berlin, Germany
-
 
 The performer writes in black over a bright light. As the writing accumulates, the light gradually dims, and the space slowly sinks into darkness along with it.
 

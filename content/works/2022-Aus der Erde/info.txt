@@ -1,12 +1,12 @@
 title: Aus der Erde
 year: 2022
-medium: Videoinstallation, 16:11", 82" monitor
+medium: Video installation, 16:11, 82" monitor
 video: https://youtu.be/TGm7DkUAEPs
 category: installation, video
 ---
 St. Bartholomew Church, Halle, Germany
 
-The Performer in video digs out his own shadow.
+The performer in the video digs out his own shadow.
 Then the shadowy void was left on the floor.
 Slowly, it fills with light.
 

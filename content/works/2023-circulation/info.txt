@@ -1,15 +1,13 @@
 title: Circulation
 year: 2022
-medium: Real-time light installation, video camera, projector
+medium: Real-time light installation, church window, video camera, projector, loop
 video: https://youtu.be/pW6SulnHJRQ
 category: installation
 ---
-St. Bartholomew Church, Halle (Saale)
+St. Bartholomew Church, Halle (Saale), Germany
 
-The Performer in video digs out his own shadow.
-Then the shadowy void was left on the floor.
-Slowly, it fills with light.
+A video camera films the church window. A projector casts this footage back onto the same window in real time.
+The sunlight falling through the window is endlessly replicated as a digital image and turns into digital light.
 
-영상 속 퍼포머는 자신의 그림자를 파낸다.
-그러자 바닥에는 그림자 모양의 텅 빈 자리가 남았다.
-이곳은 빛으로 차오른다.
+비디오 카메라가 창문을 촬영한다. 프로젝터는 이 영상을 실시간으로 창문에 다시 전사한다.
+그 결과 창문에 비친 햇빛이 디지털 이미지로 무한히 복제되어 디지털 빛으로 전환된다.

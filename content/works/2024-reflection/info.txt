@@ -1,6 +1,6 @@
 title: Reflection
 year: 2024
-medium: videoinstallation, 01:21, loop, colour, sound
+medium: Video installation, 01:21, loop, colour, sound
 video: https://youtu.be/FICgACCBJxk?si=ifs6jNhYC_sxf3cx
 category: installation, video
 ---
@@ -8,4 +8,4 @@ Berlin, Germany
 
 The monitor screen reflects the exhibition space. This extended space continuously shifts through different lighting conditions.
 
-모니터화면은 전시공간을 반사시킨다. 확장된 전시공간은 여러 조명조건으로 계속해서 바뀌어 나간다. 
+모니터 화면은 전시공간을 반사한다. 확장된 전시공간은 여러 조명 조건으로 계속해서 바뀌어 나간다.

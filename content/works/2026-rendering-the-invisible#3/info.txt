@@ -1,4 +1,4 @@
- title: Rendering the Invisible
+title: Rendering the Invisible #3
 year: 2026
 medium: Installation and performance, 11:12, 120x10x10 cm UV LED, photochromic colour, stainless steel
 video: https://youtu.be/25ZSR5G8ObE?si=vRqGBuniO17Qi6Jm
@@ -9,7 +9,7 @@ Berlin, Germany
 Areas exposed to light gradually darken before slowly fading away.
 The performer leaves footprints across photochromic paper, then repeatedly presses connected handprints by linking finger to finger. One by one, these traces slowly disappear.
 
-빛을 비춘곳이 어두워지고, 서서히 사라진다.
+빛을 비춘 곳이 어두워지고, 서서히 사라진다.
 행위자는 종이 위 자신의 발자국을 남기고,
 손가락끼리 연결된 손의 흔적을 반복해서 남긴다.
 남겨진 흔적들은 차례대로 다시 서서히 사라진다.

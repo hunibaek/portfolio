@@ -1,11 +1,10 @@
-title: The Person Who Cannot See themselves
-
+title: The Person Who Cannot See Themselves
 year: 2026
 medium: Interactive installation, 2 laser levels, glow paint, 2 construction tripods
 video: https://youtu.be/XoTxn9bRYoY
 category: installation
 ---
-Düsseldorf, Germany
+Gewebe der Wirklichkeit, Freibad, Düsseldorf, Germany
 
 When a viewer casts a shadow over the laser beam, phosphorescent text gradually appears beneath the shadow. The text consists of excerpts from the artist’s short story, which follows a figure wandering across an endless horizon in search of an invisible body.
 
@@ -15,9 +14,8 @@ When a viewer casts a shadow over the laser beam, phosphorescent text gradually 
 
 “Transferring consciousness into darkness.”
 
-
-”해가 지자, 그림자가 사라지기 시작했다. 나는 내가 사라질까 무서워 해를 향해 달렸다.“
-”물안에도 해가 떠 있었다. 일렁이는 물을 손으로 붙들어 보았지만 형상은 더 일그러져만 갔다.“
-”손으로도 태양이 가려지지 않았다.“
+“해가 지자, 그림자가 사라지기 시작했다. 나는 내가 사라질까 무서워 해를 향해 달렸다.”
+“물 안에도 해가 떠 있었다. 일렁이는 물을 손으로 붙들어 보았지만 형상은 더 일그러져만 갔다.”
+“어둠으로의 의식 전이”
 
 관객이 수평자의 레이저를 가리면, 그림자 아래 야광 텍스트가 드러난다. 이 텍스트는 보이지 않는 육체를 찾아 끝없는 지평을 방황하는 한 인물의 여정을 담은 작가의 단편소설에서 발췌한 문장들이다.

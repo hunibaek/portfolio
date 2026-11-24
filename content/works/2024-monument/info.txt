@@ -1,7 +1,7 @@
 title: Monument
 year: 2024
 medium: Light installation, 50x70x40 cm, LED lamp, gravestone, aluminum plate
-video:https://youtu.be/JxjlCYKHBrw?si=k9Zkm9mE_rsVImIm&t=46
+video: https://youtu.be/JxjlCYKHBrw?si=k9Zkm9mE_rsVImIm&t=46
 category: installation
 ---
 Berlin, Germany
@@ -12,7 +12,7 @@ The bright neon light installed above dazzles the eyes while reading.
 
 The smooth surfaces of the aluminum plate and the gravestone reflect light and darkness in different dimensions, making visible how transcendence and emptiness cross on the same surface.
 
-Zu früh für uns, doch Gottes Wille"(우리에게는 너무 이르지만, 신의 뜻이다)라는 문구가 새겨진 묘비 같은 좌대가 공간 안에 기념비처럼 서 있다.
+“Zu früh für uns, doch Gottes Wille”(우리에게는 너무 이르지만, 신의 뜻이다)라는 문구가 새겨진 묘비 같은 좌대가 공간 안에 기념비처럼 서 있다.
 
 그 위에 설치된 밝은 네온 조명은 글을 읽는 이의 눈을 부시게 한다.
 

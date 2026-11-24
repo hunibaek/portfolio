@@ -1,10 +1,10 @@
-title: Pendlum
+title: Pendulum
 year: 2023
-medium: Performance with 5 persons, 07:01”
-video:https://youtu.be/PSSiiNGZoXg?si=FFQ_K47AkjeitU6d
+medium: Performance with 5 persons, 07:01
+video: https://youtu.be/PSSiiNGZoXg?si=FFQ_K47AkjeitU6d
 category: performance, video
 ---
-VERKSMIÐJAN Á HJALTEYRI, Iceland
+Re:fuse, Verksmiðjan á Hjalteyri, Iceland
 
 Five individuals stand, leaning on each other. Each person takes a deep breath, holds it to their limit, and exhales. As they repeat this process, their bodies' tension and release create a unified pendulum-like movement.
 

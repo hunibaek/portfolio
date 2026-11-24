@@ -61,6 +61,7 @@ def inline(s):
     s = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", s)
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+|mailto:[^)\s]+)\)",
                r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
+    s = re.sub(r"\[([^\]]+)\]\(((?:\.\./|\./|/)[^)\s]*)\)", r'<a href="\2">\1</a>', s)   # site-internal links
     s = re.sub(r'(?<![="\w>])(https?://[^\s<]+)', r'<a href="\1" target="_blank" rel="noopener">\1</a>', s)
     s = re.sub(r'(?<![:\w/"])([\w.+-]+@[\w-]+\.[\w.-]+\w)', r'<a href="mailto:\1">\1</a>', s)
     return s
@@ -101,6 +102,9 @@ def embed(url):
             print(f"  ! video link not recognised: {url}")
             return ""
         src = f"https://www.youtube-nocookie.com/embed/{m.group(1)}?rel=0"
+        t = re.search(r"[?&#](?:t|start)=(\d+)", url)   # keep the start time (…&t=46)
+        if t:
+            src += f"&start={t.group(1)}"
     return (f'<div class="video"><iframe src="{src}" loading="lazy" title="video" '
             f'allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>')
 
